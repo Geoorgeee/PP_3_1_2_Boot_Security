@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>LastName</th>
+        <th>Age</th>
+    </tr>
+    </thead>
+    <tr th:each="user : ${users}">
+        <td th:utext="${user.getId()}">ID</td>
+        <td th:utext="${user.getUsername()}">Name</td>
+        <td th:utext="${user.getLastName()}">LastName</td>
+        <td th:utext="${user.getAge()}">Age</td>
+        <td>
+            <ul>
+                <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
+            </ul>
+        </td>
+        <td>
+            <a th:href="'/admin/updateUser?id='+${user.id}">Update</a>
+        </td>
+        <td>
+            <a th:href="'/admin/removeUser?id='+${user.id}">Delete</a>
+        </td>
+    </tr>
+</table>
+<br>
+<button onclick="window.location.href = '/admin/new'">Add new user</button>
+<input align="right" type="button" value="logout"
+       onclick="window.location.href = '/logout'"/>
+</body>
+
+</html>
