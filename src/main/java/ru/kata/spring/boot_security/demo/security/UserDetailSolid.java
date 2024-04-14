@@ -2,9 +2,10 @@ package ru.kata.spring.boot_security.demo.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
-import java.util.Collection;
+import java.util.*;
 
 public class UserDetailSolid implements UserDetails {
     private final User user;
@@ -15,7 +16,12 @@ public class UserDetailSolid implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles();
+        Collection<GrantedAuthority> asd = new HashSet<>();
+        for (Role d : user.getRoles()) {
+            asd.add(new RoleGAimpl(d));
+        }
+        return asd;
+
     }
 
     @Override
@@ -46,5 +52,13 @@ public class UserDetailSolid implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Set<Role> getRoles() {
+        return user.getRoles();
+    }
+
+    public User getUser() {
+        return user;
     }
 }

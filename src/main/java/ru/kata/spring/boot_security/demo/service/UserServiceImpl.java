@@ -12,17 +12,18 @@ import ru.kata.spring.boot_security.demo.model.User;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
+import ru.kata.spring.boot_security.demo.security.UserDetailSolid;
 
 
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    // public UserDao userDao;
+
     public final UserRepository userRepository;
     public final RoleRepository roleRepository;
 
@@ -61,6 +62,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void updateUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -83,6 +85,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return user;
+        return new UserDetailSolid(user);
     }
 }

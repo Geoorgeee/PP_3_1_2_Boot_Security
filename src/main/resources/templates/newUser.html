@@ -7,19 +7,41 @@
 </head>
 <body>
 <div>
-        <form th:method="POST" th:action="@{/admin/updateUser}" th:object="${user}">
+    <form th:method="POST" th:action="@{/admin/updateUser}" th:object="${user}">
         <input hidden="hidden" type="number" th:field="*{id}" id="idAdd" placeholder="id">
+
         <label for="firstNameUpdate">Name</label>
         <input type="text" th:field="*{username}" id="firstNameUpdate" placeholder="Name">
         <br>
+
         <label for="lastNameUpdate">LastName</label>
         <input type="text" th:field="*{lastName}" id="lastNameUpdate" placeholder="LastName">
         <br>
+
         <label for="emailUpdate">Age</label>
         <input type="text" th:field="*{age}" id="emailUpdate" placeholder="Age">
         <br>
+        <label for="roleUpdate">Roles</label>
+        <select th:field="*{roles}" id="roleUpdate" multiple>
+            <option value="1">ROLE_USER</option>
+            <option value="2">ROLE_ADMIN</option>
+        </select>
+        <br>
+        <label for="passwordUpdate">Password</label>
+        <input type="password" th:field="*{password}" id="passwordUpdate" placeholder="Password" oninput="clearPasswordField(this)">
+        <script>
+            function clearPasswordField(input) {
+                setTimeout(function() {
+                    input.value = '';
+                }, 10000);
+            }
+        </script>
+        <br>
+
+
         <input type="submit" value="Update User">
     </form>
+
 </div>
 <input align="right" type="button" value="logout"
        onclick="window.location.href = '/logout'"/>
