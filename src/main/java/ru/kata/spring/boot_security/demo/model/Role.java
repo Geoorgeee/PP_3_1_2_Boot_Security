@@ -9,10 +9,12 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String name;
     @Transient
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL)
     private Set<User> users;
 
     public Role(String name) {

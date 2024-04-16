@@ -22,7 +22,7 @@ public class UserContorollerSeq {
     }
 
     @GetMapping
-    public String takeHomePage(Model model, Principal principal) {
+    public String getHomePage(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
 

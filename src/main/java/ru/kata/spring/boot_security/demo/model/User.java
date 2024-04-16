@@ -25,16 +25,12 @@ public class User {
     public byte age;
 
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Column
     private String password;
     @Transient
     private String passwordConfirm;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Role> roles;
 
 
@@ -60,6 +56,9 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 
